@@ -4,6 +4,7 @@ import Header from "../header/header";
 import SwqpiService from "../../services/swapi-service";
 import ItemDetalis from "../item-detalis";
 import Record from "../Record/record";
+import {SwapiServiceProvider} from "../swapi-service-context"
 import {
     PersonDetails,
     PlanetDetails,
@@ -12,16 +13,26 @@ import {
     PlanetList,
     StarshipList
 } from '../sw-components'
+import DummySwapiService from "../../services/dummy-swapi-service";
+import RandomPlanet from "../random-planet";
+import Row from "../Row";
 
 export default  class App extends  Component{
 
-    swapiService =new SwqpiService();
-
 
     state={
-        selectedPerson :1
+        selectedPerson :1,
+        swapiService: new SwqpiService()
     }
-
+    onServiceChange =()=>{
+       this.setState(({swapiService})=>{
+           const Service=swapiService instanceof SwqpiService ? DummySwapiService :SwqpiService
+           console.log('switched to ',Service.name);
+           return{
+               swapiService: new Service()
+           }
+       })
+    }
     onPersonSelected =(id)=>{
          this.setState({
              selectedPerson:id
@@ -31,7 +42,7 @@ export default  class App extends  Component{
 
     render() {
 
-        const {getPerson,getStarship,getPersonImage,getStarshipImage ,getAllPeople}=this.swapiService;
+        const {getPerson,getStarship,getPersonImage,getStarshipImage ,getAllPeople}=this.state.swapiService;
 
         const personDetails =(
             <ItemDetalis getData={getPerson}  itemId={11} getImageUrl={getPersonImage} >
@@ -50,24 +61,19 @@ export default  class App extends  Component{
 
         return (
             <div>
-                <Header/>
-                {/*<RandomPlanet  getData={this.swapiService}/>*/}
-                {/*<Row left={personDetails} right={starshipDetails} />*/}
+                <SwapiServiceProvider value={this.state.swapiService}>
+                <Header onServiceChange={this.onServiceChange}/>
+                <RandomPlanet  getData={this.state.swapiService}/>
+                <Row left={personDetails} right={starshipDetails} />
                 <PersonDetails itemId={11} />
                 <PlanetDetails itemId={5}/>
                 <StarshipDetails itemId={9} />
 
 
-                <PersonList>
-                    {({name}) =><span>{name}</span>}
-                </PersonList>
-                <StarshipList>
-                    {({name}) =><span>{name}</span>}
-                </StarshipList>
-                <PlanetList>
-                    {({name}) =><span>{name}</span>}
-                </PlanetList>
-
+                <PersonList/>
+                <StarshipList/>
+                <PlanetList/>
+                </SwapiServiceProvider>
             </div>
         );
     }
