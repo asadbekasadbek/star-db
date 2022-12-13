@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import ItemList from "../item-list";
-import PersonDetalis from "../person-detalis";
+import ItemDetalis from "../item-detalis";
 import ErrorIndicator from "../error-indicator";
-import ErrorButton from "../error-button";
+import Row from "../Row";
 
 class PeoplePage extends Component {
-
     state={
         selectedPerson: 1,
-        hasError:false
     }
 
     componentDidCatch(error, errorInfo) {
@@ -22,23 +20,23 @@ class PeoplePage extends Component {
     }
 
     render() {
-
+         const {swapiService} =this.props
         if(this.state.hasError){
             return <div style={{display:"flex", justifyContent:"center"}} className="random-planet  rounded m-1">
                 <ErrorIndicator/>
             </div>
         }
 
+        const itemList=(
+            <ItemList   getDate={swapiService.getAllPeople} onItemSelected={this.onPersonSelected} >
+                {(i) => (
+                    `${i.name} (${i.birthYear})`
+                )}
+            </ItemList>
+        )
+        const personDetalis =( <ItemDetalis itemId={this.state.selectedPerson} />)
         return (
-            <div className="row mb-2">
-                <div className="col-md-6">
-                    <ItemList onItemSelected={this.onPersonSelected} />
-                </div>
-                <div className="col-md-6">
-                    <PersonDetalis personId={this.state.selectedPerson} />
-                </div>
-                 <ErrorButton/>
-            </div>
+           <Row right={personDetalis} left={itemList} />
         );
     }
 }
