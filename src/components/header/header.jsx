@@ -1,6 +1,6 @@
 import React from 'react';
 import  './header.css';
-const Header = ({onServiceChange}) => {
+const Header = () => {
     return (
         <div className="header d-flex m-1">
             <h3>
@@ -20,9 +20,7 @@ const Header = ({onServiceChange}) => {
                 </li>
             </ul>
 
-            <button onClick={onServiceChange} className="btn btn-primary btn-sm">
-                Change Service
-            </button>
+
         </div>
     );
 };
