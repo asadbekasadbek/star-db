@@ -11,7 +11,7 @@ import {
 
 const renderName = ({ name }) => <span>{name}</span>;
 
-const renderModelAndName = ({ model, name}) => <span>{name} ({model})</span>;
+
 
 const mapPersonMethodsToProps = (swapiService) => {
     return {
@@ -19,17 +19,9 @@ const mapPersonMethodsToProps = (swapiService) => {
     };
 };
 
-const mapPlanetMethodsToProps = (swapiService) => {
-    return {
-        getData: swapiService.getAllPlanets
-    };
-};
 
-const mapStarshipMethodsToProps = (swapiService) => {
-    return {
-        getData: swapiService.getAllStarships
-    };
-};
+
+
 
 const PersonList = compose(
     withSwapiService(mapPersonMethodsToProps),

@@ -1,6 +1,6 @@
 import React from 'react';
 import ErrorBoundry from "../ErrorBoundry";
-import ErrorButton from "../error-button";
+import PropTypes from "prop-types";
 
 const Row = ({left,right}) => {
     return (
@@ -16,5 +16,10 @@ const Row = ({left,right}) => {
         </div>
     );
 };
+
+Row.prototype={
+    left:PropTypes.node,
+    right:PropTypes.node
+}
 
 export default Row;

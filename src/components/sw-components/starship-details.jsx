@@ -9,7 +9,6 @@ const StarshipDetails = (props) => {
         <ItemDetails {...props}>
             <Record field="model" label="Model" />
             <Record field="length" label="Length" />
-            <Record field="costInCredits" label="Cost" />
         </ItemDetails>
     );
 };
@@ -21,4 +20,4 @@ const mapMethodsToProps = (swapiService) => {
     }
 };
 
-export default withSwapiService(mapMethodsToProps)(ItemDetails);
+export default withSwapiService(mapMethodsToProps)(StarshipDetails);

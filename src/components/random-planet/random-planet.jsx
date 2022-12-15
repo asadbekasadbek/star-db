@@ -53,7 +53,7 @@ export default  class RandomPlanet extends Component{
          }
         return(
             <div className="random-planet  rounded m-1">
-              <img className="planet-image" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+              <img className="planet-image" src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="error" />
                 <div className='m-3'>
                     <h4>{name}</h4>
                     <ul className="list-group">

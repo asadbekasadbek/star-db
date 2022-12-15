@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StarshipDetails, StarshipList} from "../sw-components";
 import Row from "../Row";
 
+
 class StarshipsPage extends Component {
     state={
         selectedItem:5
